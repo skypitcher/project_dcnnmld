@@ -6,9 +6,31 @@ Offical repo for the paper titled "A MIMO Detector with Deep Learning in the Pre
 2. `pip install matplotlib`
 3. `pip install mpmath`
 
-## How to run?
+## How to run benchmark?
 1. Establish all the dependencies
 2. Keep calm and run `python test.py`
+
+## How to train model?
+1. Generate training set and valid set
+2. train your model
+there is a example code snippet for you
+```
+def generate_training_set_and_valid_set(rho, sir_db):
+    print("Generating data sets, rho={:.1f} sir={}".format(rho, sir_db))
+    training_set = DataSet(flag=1, rho=rho, sir=sir_db)  # flag == 1 : training set
+    training_set.produce_all()
+
+    valid_set = DataSet(flag=1, rho=rho, sir=sir_db)  # flag == 2 : valid set
+    valid_set.produce_all()
+    
+def train_model(rho, sir_db, is_improved=True):
+    model = DCNNMLD(rho, sir_db, is_improved=is_improved)
+    model.train()
+    
+def gennerate_data_and_then_train_model(rho, sir_db, is_improved=True):
+    generate_training_set_and_valid_set(rho, sir_db)
+    train_model(rho, sir_db, is_improved)
+```
 
 ## License
 Anti 996 License Version 1.0
